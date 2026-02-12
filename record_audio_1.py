@@ -1,12 +1,16 @@
-# Definindo a linguagem
+# ============================
+#  Captura de Áudio no Colab
+# ============================
+
+# Define a língua principal usada na transcrição
 language = 'pt'
 
-# Importando as bibliotecas 
+# Importações necessárias 
 from IPython.display import Audio, display, Javascript
 from google.colab import output
 from base64 import b64decode
 
-# Código JavaScript para gravar áudio do usuário usando a "MediaStream Recording API"
+# JavaScript que acessa o microfone e grava o áudio usando "MediaStream Recording API"
 RECORD = """
 const sleep  = time => new Promise(resolve => setTimeout(resolve, time))
 const b2text = blob => new Promise(resolve => {
@@ -31,15 +35,27 @@ var record = time => new Promise(async resolve => {
 """
 
 def record(sec=5):
+# Grava áudio via navegador usando JavaScript e salva como WAV.
+# Retorna o caminho do arquivo gerado.
+  # Executa o código JS no Colab para iniciar a gravação
   display(Javascript(RECORD))
+  
+  # Recebe o áudio gravado em base64
   js_result = output.eval_js('record(%s)' % (sec * 1000))
+
+  # Converte de base64 para bytes
   audio = b64decode(js_result.split(',')[1])
+
+  # Salva o áudio como arquivo WAV
   file_name = 'request_audio.wav'
   with open(file_name, 'wb') as f:
     f.write(audio)
   return f'/content/{file_name}'
 
-# Grava o áudio do usuário por um tempo determinado (padrão 5 segundos)
+# ============================
+# Gravar e Exibir Áudio
+# ============================
+
 print('Ouvindo...\n')
 record_file = record()
 
