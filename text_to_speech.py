@@ -1,3 +1,8 @@
+# ============================
+# Síntese de Voz com gTTS
+# ============================
+
+# Instalação da biblioteca
 !pip install gTTS
 
 from gtts import  gTTS
