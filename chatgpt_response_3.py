@@ -1,8 +1,12 @@
-# instalando biblioteca
+# ============================
+# ChatGPT — Gerar Resposta
+# ============================
+
+# Instalação da biblioteca OpenAI
 !pip install openai
 
 import os
-os.environ['OPENAI_API_KEY'] = 'SUA CHAVE'
+os.environ['OPENAI_API_KEY'] = 'SUA_CHAVE_AQUI'
 
 import openai
 
